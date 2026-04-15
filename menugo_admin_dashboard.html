@@ -1,0 +1,534 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--sp:#EE3F24;--sp2:#c42d14;--cr:#FFEFCB;--mt:#023820;--mt2:#0a5c36;--yk:#F9A11B;--tf:#FFF4E6;--ft:'Plus Jakarta Sans',sans-serif;--fd:'Syne',sans-serif;}
+body{font-family:var(--ft);background:#f4f4f0;min-height:100vh;}
+
+/* LOGIN */
+.al-screen{display:none;min-height:100vh;}
+.al-screen.on{display:flex;}
+#al-login{align-items:center;justify-content:center;background:var(--mt);padding:40px 20px;}
+.al-login-box{background:white;border-radius:24px;padding:36px 32px;width:100%;max-width:380px;}
+.al-brand{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+.al-brand-logo{font-family:var(--fd);font-size:26px;font-weight:800;color:var(--sp);}
+.al-brand-tag{background:var(--mt);color:var(--yk);padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:1px;}
+.al-title{font-family:var(--fd);font-size:20px;font-weight:800;color:var(--mt);margin-bottom:4px;}
+.al-sub{font-size:13px;color:#aaa;margin-bottom:24px;}
+.al-fld{margin-bottom:14px;}
+.al-fld label{display:block;font-size:11px;font-weight:600;color:var(--mt);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;}
+.al-fld input{width:100%;padding:11px 14px;border:1.5px solid rgba(2,56,32,.18);border-radius:10px;font-family:var(--ft);font-size:14px;color:var(--mt);background:#fafaf8;outline:none;}
+.al-fld input:focus{border-color:var(--sp);background:white;}
+.al-btn{width:100%;padding:13px;background:var(--sp);color:white;border:none;border-radius:12px;font-family:var(--fd);font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;}
+.al-btn:hover{background:var(--sp2);}
+
+/* APP */
+#al-app{flex-direction:row;}
+.sidebar{width:220px;background:var(--mt);display:flex;flex-direction:column;min-height:100vh;flex-shrink:0;}
+.sb-logo{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);}
+.sb-logo-text{font-family:var(--fd);font-size:20px;font-weight:800;color:var(--yk);}
+.sb-logo-sub{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.sb-nav{padding:14px 10px;flex:1;}
+.sb-sec{font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,.25);text-transform:uppercase;padding:10px 10px 5px;margin-top:6px;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;margin-bottom:3px;cursor:pointer;color:rgba(255,255,255,.55);font-size:13px;font-weight:500;transition:all .15s;border:none;background:none;width:100%;text-align:left;}
+.sb-item svg{width:15px;height:15px;flex-shrink:0;}
+.sb-item:hover{background:rgba(255,255,255,.07);color:white;}
+.sb-item.on{background:var(--sp);color:white;}
+.sb-footer{padding:14px 12px;border-top:1px solid rgba(255,255,255,.08);}
+.sb-user{display:flex;align-items:center;gap:9px;}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:var(--yk);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;font-weight:700;color:var(--mt);flex-shrink:0;}
+.sb-uname{font-size:13px;color:white;font-weight:600;}
+.sb-urole{font-size:11px;color:rgba(255,255,255,.35);}
+.sb-logout{font-size:11px;color:rgba(255,255,255,.3);cursor:pointer;border:none;background:none;padding:3px 6px;border-radius:6px;margin-top:2px;}
+.sb-logout:hover{background:rgba(255,255,255,.08);color:white;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:100vh;}
+.topbar{background:white;border-bottom:1px solid rgba(0,0,0,.07);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.tb-title{font-family:var(--fd);font-size:17px;font-weight:800;color:var(--mt);}
+.tb-right{display:flex;align-items:center;gap:10px;}
+.tb-search{padding:7px 14px 7px 34px;border:1.5px solid rgba(2,56,32,.12);border-radius:10px;font-family:var(--ft);font-size:13px;outline:none;background:#fafaf8;color:var(--mt);width:190px;}
+.tb-search:focus{border-color:var(--sp);background:white;}
+.tb-search-wrap{position:relative;}
+.tb-search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:#aaa;}
+.btn{padding:8px 16px;border-radius:8px;font-family:var(--ft);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
+.btn-pri{background:var(--sp);color:white;}
+.btn-pri:hover{background:var(--sp2);}
+.btn-sec{background:var(--cr);color:var(--mt);border:1px solid rgba(2,56,32,.12);}
+.btn-sec:hover{background:var(--yk);}
+.btn-sm{padding:5px 12px;font-size:12px;border-radius:7px;}
+
+.content{flex:1;overflow-y:auto;padding:20px 24px 32px;}
+.pg{display:none;}
+.pg.on{display:block;}
+
+/* STAT CARDS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.scard{background:white;border-radius:14px;padding:16px;border-left:3px solid var(--sp);}
+.scard.g{border-left-color:var(--mt);}
+.scard.y{border-left-color:var(--yk);}
+.scard.b{border-left-color:#3b82f6;}
+.scard-val{font-family:var(--fd);font-size:22px;font-weight:800;color:var(--mt);}
+.scard-lbl{font-size:11px;color:#aaa;margin-top:3px;}
+.scard-trend{font-size:11px;color:#16a34a;margin-top:4px;font-weight:600;}
+
+/* SECTION HEADER */
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.sec-title{font-family:var(--fd);font-size:15px;font-weight:800;color:var(--mt);}
+
+/* MENU TABLE */
+.tbl-wrap{background:white;border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.tbl-head{display:grid;padding:11px 16px;font-size:11px;font-weight:600;color:#aaa;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid rgba(0,0,0,.07);}
+.tbl-row{display:grid;padding:11px 16px;font-size:13px;color:var(--mt);border-bottom:1px solid rgba(0,0,0,.04);align-items:center;transition:background .12s;}
+.tbl-row:last-child{border-bottom:none;}
+.tbl-row:hover{background:#fafaf8;}
+.menu-tbl .tbl-head,.menu-tbl .tbl-row{grid-template-columns:44px 1fr 90px 90px 90px;}
+.order-tbl .tbl-head,.order-tbl .tbl-row{grid-template-columns:70px 90px 1fr 80px 100px 80px;}
+.report-tbl .tbl-head,.report-tbl .tbl-row{grid-template-columns:70px 120px 1fr 80px 80px 90px;}
+.ico-cell{font-size:22px;text-align:center;}
+.badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.b-mak{background:rgba(238,63,36,.08);color:var(--sp);}
+.b-min{background:rgba(2,56,32,.08);color:var(--mt);}
+.b-sna{background:rgba(249,161,27,.12);color:#b07000;}
+.b-des{background:rgba(59,130,246,.1);color:#1d4ed8;}
+.b-pend{background:rgba(2,56,32,.08);color:var(--mt);}
+.b-proc{background:rgba(249,161,27,.12);color:#b07000;}
+.b-ready{background:rgba(22,163,74,.1);color:#15803d;}
+.b-done{background:rgba(0,0,0,.06);color:#888;}
+.b-cancel{background:rgba(238,63,36,.08);color:var(--sp);}
+.act-btns{display:flex;gap:5px;}
+.ibtn{padding:5px 10px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;border:none;}
+.ibtn-edit{background:rgba(249,161,27,.12);color:#b07000;}
+.ibtn-edit:hover{background:rgba(249,161,27,.25);}
+.ibtn-del{background:rgba(238,63,36,.08);color:var(--sp);}
+.ibtn-del:hover{background:rgba(238,63,36,.2);}
+.status-sel{padding:5px 10px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid rgba(0,0,0,.1);background:white;color:var(--mt);font-family:var(--ft);}
+
+/* CHART */
+.chart-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:20px;}
+.chart-card{background:white;border-radius:14px;padding:18px;}
+.chart-bars{display:flex;align-items:flex-end;gap:7px;height:130px;margin:14px 0 6px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.bar{width:100%;border-radius:5px 5px 0 0;cursor:pointer;transition:opacity .15s;}
+.bar:hover{opacity:.75;}
+.bar-lbl{font-size:10px;color:#aaa;}
+.bar-val{font-size:10px;font-weight:600;color:var(--mt);}
+.donut-wrap{display:flex;align-items:center;gap:16px;margin-top:14px;}
+.donut-legend{display:flex;flex-direction:column;gap:7px;flex:1;}
+.donut-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--mt);}
+.donut-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* MODAL (in-flow) */
+.modal-bg{display:none;background:rgba(0,0,0,.45);min-height:500px;align-items:flex-start;justify-content:center;padding:40px 20px;border-radius:16px;margin-top:12px;}
+.modal-bg.open{display:flex;}
+.modal{background:white;border-radius:20px;padding:24px;width:100%;max-width:400px;}
+.modal-title{font-family:var(--fd);font-size:17px;font-weight:800;color:var(--mt);margin-bottom:16px;}
+.mfld{margin-bottom:13px;}
+.mfld label{display:block;font-size:11px;font-weight:600;color:var(--mt);letter-spacing:.7px;text-transform:uppercase;margin-bottom:5px;}
+.mfld input,.mfld select,.mfld textarea{width:100%;padding:10px 13px;border:1.5px solid rgba(2,56,32,.18);border-radius:9px;font-family:var(--ft);font-size:13px;color:var(--mt);background:#fafaf8;outline:none;}
+.mfld input:focus,.mfld select:focus,.mfld textarea:focus{border-color:var(--sp);background:white;}
+.mfld textarea{resize:vertical;min-height:70px;}
+.modal-acts{display:flex;gap:8px;margin-top:16px;}
+.modal-acts .btn{flex:1;padding:11px;}
+
+/* TOAST */
+.toast{background:var(--mt);color:white;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;border-left:3px solid var(--yk);position:fixed;bottom:20px;right:20px;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;transform:translateY(0);}
+</style>
+
+<!-- LOGIN -->
+<div id="al-login" class="al-screen on">
+  <div class="al-login-box">
+    <div class="al-brand">
+      <div class="al-brand-logo">MenuGo</div>
+      <div class="al-brand-tag">ADMIN</div>
+    </div>
+    <div class="al-title">Masuk ke Dashboard</div>
+    <div class="al-sub">Khusus untuk pengelola sistem MenuGo.</div>
+    <div class="al-fld"><label>Username Admin</label><input id="al-user" value="admin" placeholder="admin"/></div>
+    <div class="al-fld"><label>Password</label><input id="al-pass" type="password" value="admin123" placeholder="••••••••"/></div>
+    <button class="al-btn" onclick="alLogin()">Masuk sebagai Admin</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="al-app" class="al-screen">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-text">MenuGo</div>
+      <div class="sb-logo-sub">Admin Panel</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">Utama</div>
+      <button class="sb-item on" id="sb-dashboard" onclick="goPage('dashboard',this)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+        Dashboard
+      </button>
+      <div class="sb-sec">Manajemen</div>
+      <button class="sb-item" id="sb-menu" onclick="goPage('menu',this)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4h12M2 8h8M2 12h10"/></svg>
+        Kelola Menu
+      </button>
+      <button class="sb-item" id="sb-orders" onclick="goPage('orders',this)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M5 8h6M5 5.5h3M5 10.5h4"/></svg>
+        Pesanan Masuk
+        <span id="order-badge" style="background:var(--sp);color:white;font-size:9px;padding:1px 6px;border-radius:20px;margin-left:auto;">3</span>
+      </button>
+      <div class="sb-sec">Analitik</div>
+      <button class="sb-item" id="sb-report" onclick="goPage('report',this)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 14V6l4-4h8v12H2z"/><path d="M6 2v4H2M5 9h6M5 11h4"/></svg>
+        Laporan Penjualan
+      </button>
+    </nav>
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-avatar">AD</div>
+        <div>
+          <div class="sb-uname">Admin</div>
+          <div class="sb-urole">Manager</div>
+          <button class="sb-logout" onclick="alLogout()">Keluar</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="tb-title" id="tb-title">Dashboard</div>
+      <div class="tb-right">
+        <div class="tb-search-wrap">
+          <span class="tb-search-ico">🔍</span>
+          <input class="tb-search" id="tb-search" placeholder="Cari..." oninput="handleSearch(this.value)"/>
+        </div>
+        <button class="btn btn-pri" id="tb-action" onclick="tbAction()">+ Tambah Menu</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD PAGE -->
+      <div class="pg on" id="pg-dashboard">
+        <div class="stat-row">
+          <div class="scard"><div class="scard-val">Rp 4,2jt</div><div class="scard-lbl">Pendapatan Hari Ini</div><div class="scard-trend">↑ 12% vs kemarin</div></div>
+          <div class="scard g"><div class="scard-val">47</div><div class="scard-lbl">Total Pesanan</div><div class="scard-trend">↑ 8 pesanan baru</div></div>
+          <div class="scard y"><div class="scard-val">3</div><div class="scard-lbl">Pesanan Aktif</div><div class="scard-trend" style="color:#b07000;">Perlu diproses</div></div>
+          <div class="scard b"><div class="scard-val">24</div><div class="scard-lbl">Menu Tersedia</div><div class="scard-trend" style="color:#1d4ed8;">2 kategori</div></div>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="sec-title">Penjualan 7 Hari Terakhir</div>
+            <div class="chart-bars" id="dash-chart"></div>
+          </div>
+          <div class="chart-card">
+            <div class="sec-title">Menu Terlaris</div>
+            <div id="top-menu" style="margin-top:12px;"></div>
+          </div>
+        </div>
+        <div class="sec-hd"><span class="sec-title">Pesanan Terbaru</span><button class="btn btn-sec btn-sm" onclick="goPage('orders',document.getElementById('sb-orders'))">Lihat semua</button></div>
+        <div class="tbl-wrap order-tbl" id="dash-recent-orders"></div>
+      </div>
+
+      <!-- MENU PAGE -->
+      <div class="pg" id="pg-menu">
+        <div class="stat-row" style="grid-template-columns:repeat(4,1fr);">
+          <div class="scard"><div class="scard-val" id="m-total">12</div><div class="scard-lbl">Total Menu</div></div>
+          <div class="scard g"><div class="scard-val" id="m-makanan">4</div><div class="scard-lbl">Makanan</div></div>
+          <div class="scard y"><div class="scard-val" id="m-minuman">4</div><div class="scard-lbl">Minuman</div></div>
+          <div class="scard b"><div class="scard-val" id="m-other">4</div><div class="scard-lbl">Snack & Dessert</div></div>
+        </div>
+        <div class="sec-hd">
+          <span class="sec-title">Daftar Menu</span>
+        </div>
+        <div class="tbl-wrap menu-tbl">
+          <div class="tbl-head"><span>Ikon</span><span>Nama Menu</span><span>Kategori</span><span>Harga</span><span>Aksi</span></div>
+          <div id="menu-rows"></div>
+        </div>
+        <div id="menu-modal-area"></div>
+      </div>
+
+      <!-- ORDERS PAGE -->
+      <div class="pg" id="pg-orders">
+        <div class="stat-row" style="grid-template-columns:repeat(4,1fr);">
+          <div class="scard"><div class="scard-val" id="o-all">6</div><div class="scard-lbl">Semua Pesanan</div></div>
+          <div class="scard y"><div class="scard-val" id="o-active">3</div><div class="scard-lbl">Aktif</div></div>
+          <div class="scard g"><div class="scard-val" id="o-done">2</div><div class="scard-lbl">Selesai</div></div>
+          <div class="scard"><div class="scard-val" id="o-cancel">1</div><div class="scard-lbl">Dibatalkan</div></div>
+        </div>
+        <div class="sec-hd"><span class="sec-title">Daftar Pesanan Masuk</span></div>
+        <div class="tbl-wrap order-tbl">
+          <div class="tbl-head"><span>Order ID</span><span>Meja</span><span>Menu</span><span>Total</span><span>Status</span><span>Aksi</span></div>
+          <div id="order-rows"></div>
+        </div>
+      </div>
+
+      <!-- REPORT PAGE -->
+      <div class="pg" id="pg-report">
+        <div class="stat-row">
+          <div class="scard"><div class="scard-val">Rp 28,4jt</div><div class="scard-lbl">Total Pendapatan Bulan Ini</div><div class="scard-trend">↑ 18% vs bulan lalu</div></div>
+          <div class="scard g"><div class="scard-val">312</div><div class="scard-lbl">Total Transaksi</div><div class="scard-trend">↑ 24 transaksi baru</div></div>
+          <div class="scard y"><div class="scard-val">Rp 91rb</div><div class="scard-lbl">Rata-rata / Transaksi</div><div class="scard-trend" style="color:#b07000;">Stabil</div></div>
+          <div class="scard b"><div class="scard-val">Es Matcha</div><div class="scard-lbl">Menu Terlaris</div><div class="scard-trend" style="color:#1d4ed8;">89 terjual</div></div>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="sec-title">Pendapatan Mingguan</div>
+            <div class="chart-bars" id="rep-chart"></div>
+          </div>
+          <div class="chart-card">
+            <div class="sec-title">Penjualan per Kategori</div>
+            <div class="donut-wrap"><svg id="donut-svg" width="90" height="90" viewBox="0 0 90 90"></svg><div class="donut-legend" id="donut-legend"></div></div>
+          </div>
+        </div>
+        <div class="sec-hd"><span class="sec-title">Log Transaksi</span></div>
+        <div class="tbl-wrap report-tbl">
+          <div class="tbl-head"><span>ID</span><span>Waktu</span><span>Menu</span><span>Qty</span><span>Metode</span><span>Total</span></div>
+          <div id="report-rows"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const fRp=n=>'Rp '+n.toLocaleString('id-ID');
+let menuData=[
+  {id:1,name:'Nasi Goreng Spesial',cat:'makanan',price:28000,icon:'🍳',desc:'Nasi goreng telur ayam'},
+  {id:2,name:'Mie Ayam Bakso',cat:'makanan',price:22000,icon:'🍜',desc:'Mie lembut + bakso sapi'},
+  {id:3,name:'Soto Ayam',cat:'makanan',price:20000,icon:'🥘',desc:'Soto kuning hangat'},
+  {id:4,name:'Gado-Gado',cat:'makanan',price:18000,icon:'🥗',desc:'Sayuran + bumbu kacang'},
+  {id:5,name:'Es Matcha Latte',cat:'minuman',price:22000,icon:'🍵',desc:'Matcha premium susu oat'},
+  {id:6,name:'Kopi Susu Aren',cat:'minuman',price:20000,icon:'☕',desc:'Robusta + gula aren'},
+  {id:7,name:'Jus Alpukat',cat:'minuman',price:18000,icon:'🥑',desc:'Alpukat segar blended'},
+  {id:8,name:'Es Teh Manis',cat:'minuman',price:8000,icon:'🧊',desc:'Teh hitam manis dingin'},
+  {id:9,name:'Tempe Mendoan',cat:'snack',price:12000,icon:'🫘',desc:'Tempe tipis goreng tepung'},
+  {id:10,name:'Pisang Goreng',cat:'snack',price:10000,icon:'🍌',desc:'Pisang crispy meses'},
+  {id:11,name:'Es Krim Matcha',cat:'dessert',price:20000,icon:'🍦',desc:'2 scoop matcha ice cream'},
+  {id:12,name:'Klepon',cat:'dessert',price:15000,icon:'🟢',desc:'Klepon gula merah kelapa'},
+];
+let orderData=[
+  {id:'#MG-0042',table:'Meja 3',items:'Nasi Goreng x1, Es Matcha x2',total:72000,status:'pending',time:'18:51'},
+  {id:'#MG-0043',table:'Meja 7',items:'Soto Ayam x2, Kopi Susu x1',total:60000,status:'processing',time:'18:47'},
+  {id:'#MG-0044',table:'Meja 1',items:'Gado-Gado x1, Jus Alpukat x1',total:36000,status:'ready',time:'18:40'},
+  {id:'#MG-0041',table:'Meja 5',items:'Mie Ayam x1, Es Teh x2',total:38000,status:'done',time:'18:30'},
+  {id:'#MG-0040',table:'Meja 2',items:'Tempe Mendoan x3',total:36000,status:'done',time:'18:15'},
+  {id:'#MG-0039',table:'Meja 4',items:'Klepon x2, Es Krim x1',total:50000,status:'cancelled',time:'18:05'},
+];
+let nextMenuId=13, editMenuId=null;
+const statusMap={pending:{lbl:'Menunggu',cls:'b-pend'},processing:{lbl:'Diproses',cls:'b-proc'},ready:{lbl:'Siap Diambil',cls:'b-ready'},done:{lbl:'Selesai',cls:'b-done'},cancelled:{lbl:'Dibatalkan',cls:'b-cancel'}};
+const catBadge={makanan:'b-mak',minuman:'b-min',snack:'b-sna',dessert:'b-des'};
+const catLabels={makanan:'Makanan',minuman:'Minuman',snack:'Snack',dessert:'Dessert'};
+
+function alLogin(){
+  const u=document.getElementById('al-user').value.trim();
+  if(!u){toast('Masukkan username!');return;}
+  document.getElementById('al-login').classList.remove('on');
+  document.getElementById('al-app').classList.add('on');
+  initDashboard(); renderMenuPage(); renderOrderPage(); renderReportPage();
+}
+function alLogout(){
+  document.getElementById('al-app').classList.remove('on');
+  document.getElementById('al-login').classList.add('on');
+}
+
+function goPage(p,el){
+  ['dashboard','menu','orders','report'].forEach(pp=>{
+    document.getElementById('pg-'+pp).classList.remove('on');
+    document.getElementById('sb-'+pp)&&document.getElementById('sb-'+pp).classList.remove('on');
+  });
+  document.getElementById('pg-'+p).classList.add('on');
+  if(el)el.classList.add('on');
+  const titles={dashboard:'Dashboard',menu:'Kelola Menu',orders:'Pesanan Masuk',report:'Laporan Penjualan'};
+  document.getElementById('tb-title').textContent=titles[p]||p;
+  const actions={dashboard:'+ Tambah Menu',menu:'+ Tambah Menu',orders:'',report:'Export Laporan'};
+  const tbAction=document.getElementById('tb-action');
+  tbAction.textContent=actions[p]||'';
+  tbAction.style.display=actions[p]?'':'none';
+  document.getElementById('tb-search').value='';
+  document.getElementById('menu-modal-area').innerHTML='';
+}
+
+function tbAction(){
+  const cur=document.querySelector('.sb-item.on');
+  const pg=cur?cur.id.replace('sb-',''):'menu';
+  if(pg==='dashboard'||pg==='menu'){goPage('menu',document.getElementById('sb-menu'));openMenuModal();}
+  else if(pg==='report'){toast('Laporan diekspor! (simulasi)');}
+}
+
+function handleSearch(q){
+  const pg=document.querySelector('.pg.on').id;
+  if(pg==='pg-menu')renderMenuRows(q);
+  else if(pg==='pg-orders')renderOrderRows(q);
+  else if(pg==='pg-report')renderReportRows(q);
+}
+
+/* ─── DASHBOARD ─── */
+function initDashboard(){
+  const days=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  const vals=[1.8,2.9,2.4,3.7,3.2,4.2,4.7];
+  const max=Math.max(...vals);
+  const colors=['var(--sp)','var(--yk)','var(--mt)'];
+  document.getElementById('dash-chart').innerHTML=days.map((d,i)=>`<div class="bar-col"><div class="bar-val">${vals[i]}jt</div><div class="bar" style="height:${Math.round((vals[i]/max)*110)}px;background:${colors[i%3]}"></div><div class="bar-lbl">${d}</div></div>`).join('');
+  const tops=[{n:'Es Matcha Latte',pct:88,c:'var(--sp)'},{n:'Nasi Goreng Spesial',pct:72,c:'var(--yk)'},{n:'Kopi Susu Aren',pct:65,c:'var(--mt)'},{n:'Mie Ayam Bakso',pct:55,c:'#3b82f6'}];
+  document.getElementById('top-menu').innerHTML=tops.map(t=>`<div style="margin-bottom:11px;"><div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--mt);margin-bottom:4px;"><span style="font-weight:600;">${t.n}</span><span style="color:#aaa;">${Math.round(t.pct*89/88)} terjual</span></div><div style="background:#f0ede6;border-radius:20px;height:5px;overflow:hidden;"><div style="height:100%;background:${t.c};width:${t.pct}%;border-radius:20px;"></div></div></div>`).join('');
+  const recent=orderData.slice(0,4);
+  document.getElementById('dash-recent-orders').innerHTML=`<div class="tbl-head"><span>Order ID</span><span>Meja</span><span>Menu</span><span>Total</span><span>Status</span><span>Aksi</span></div>`+recent.map(o=>orderRowHTML(o)).join('');
+}
+
+/* ─── MENU ─── */
+function renderMenuPage(){renderMenuRows('');}
+function renderMenuRows(q){
+  const items=q?menuData.filter(m=>m.name.toLowerCase().includes(q.toLowerCase())):menuData;
+  document.getElementById('menu-rows').innerHTML=items.map(m=>`
+    <div class="tbl-row">
+      <span class="ico-cell">${m.icon}</span>
+      <span style="font-weight:600;">${m.name}<div style="font-size:11px;color:#aaa;font-weight:400;margin-top:1px;">${m.desc}</div></span>
+      <span><span class="badge ${catBadge[m.cat]||''}">${catLabels[m.cat]||m.cat}</span></span>
+      <span style="font-weight:700;color:var(--sp);">${fRp(m.price)}</span>
+      <span class="act-btns"><button class="ibtn ibtn-edit" onclick="openMenuModal(${m.id})">Edit</button><button class="ibtn ibtn-del" onclick="deleteMenu(${m.id})">Hapus</button></span>
+    </div>`).join('');
+  updateMenuStats();
+}
+function updateMenuStats(){
+  document.getElementById('m-total').textContent=menuData.length;
+  document.getElementById('m-makanan').textContent=menuData.filter(m=>m.cat==='makanan').length;
+  document.getElementById('m-minuman').textContent=menuData.filter(m=>m.cat==='minuman').length;
+  document.getElementById('m-other').textContent=menuData.filter(m=>m.cat==='snack'||m.cat==='dessert').length;
+}
+function openMenuModal(id){
+  editMenuId=id||null;
+  const m=id?menuData.find(x=>x.id===id):null;
+  document.getElementById('menu-modal-area').innerHTML=`
+    <div class="modal-bg open"><div class="modal">
+      <div class="modal-title">${m?'Edit Menu':'Tambah Menu Baru'}</div>
+      <div class="mfld"><label>Nama Menu</label><input id="mi-name" value="${m?m.name:''}" placeholder="cth. Nasi Goreng Spesial"/></div>
+      <div class="mfld"><label>Deskripsi</label><textarea id="mi-desc" placeholder="Deskripsi singkat menu...">${m?m.desc:''}</textarea></div>
+      <div class="mfld"><label>Kategori</label><select id="mi-cat"><option value="makanan" ${m&&m.cat==='makanan'?'selected':''}>Makanan</option><option value="minuman" ${m&&m.cat==='minuman'?'selected':''}>Minuman</option><option value="snack" ${m&&m.cat==='snack'?'selected':''}>Snack</option><option value="dessert" ${m&&m.cat==='dessert'?'selected':''}>Dessert</option></select></div>
+      <div class="mfld"><label>Harga (Rp)</label><input id="mi-price" type="number" value="${m?m.price:''}" placeholder="25000"/></div>
+      <div class="mfld"><label>Ikon Emoji</label><input id="mi-icon" value="${m?m.icon:''}" placeholder="🍜" maxlength="2"/></div>
+      <div class="modal-acts">
+        <button class="btn btn-sec" onclick="closeMenuModal()">Batal</button>
+        <button class="btn btn-pri" onclick="saveMenu()">${m?'Simpan Perubahan':'Tambah Menu'}</button>
+      </div>
+    </div></div>`;
+  document.getElementById('menu-modal-area').querySelector('.modal-bg').addEventListener('click',function(e){if(e.target===this)closeMenuModal();});
+}
+function closeMenuModal(){document.getElementById('menu-modal-area').innerHTML='';}
+function saveMenu(){
+  const name=document.getElementById('mi-name').value.trim();
+  const price=parseInt(document.getElementById('mi-price').value);
+  const cat=document.getElementById('mi-cat').value;
+  const desc=document.getElementById('mi-desc').value.trim();
+  const icon=document.getElementById('mi-icon').value||'🍽️';
+  if(!name||!price){toast('Nama dan harga wajib diisi!');return;}
+  if(editMenuId){
+    const idx=menuData.findIndex(m=>m.id===editMenuId);
+    if(idx>-1)menuData[idx]={...menuData[idx],name,price,cat,desc,icon};
+    toast('Menu berhasil diperbarui!');
+  } else {
+    menuData.push({id:nextMenuId++,name,price,cat,desc,icon});
+    toast('Menu baru berhasil ditambahkan!');
+  }
+  closeMenuModal(); renderMenuRows(''); updateMenuStats();
+}
+function deleteMenu(id){
+  if(!confirm('Hapus menu ini?'))return;
+  menuData=menuData.filter(m=>m.id!==id);
+  renderMenuRows(''); updateMenuStats(); toast('Menu dihapus.');
+}
+
+/* ─── ORDERS ─── */
+function renderOrderPage(){renderOrderRows('');}
+function orderRowHTML(o){
+  const s=statusMap[o.status]||{lbl:o.status,cls:''};
+  return `<div class="tbl-row">
+    <span style="font-weight:700;color:var(--sp);font-size:12px;">${o.id}</span>
+    <span style="font-weight:600;">${o.table}<div style="font-size:11px;color:#aaa;">${o.time}</div></span>
+    <span style="font-size:12px;color:#555;">${o.items}</span>
+    <span style="font-weight:700;">${fRp(o.total)}</span>
+    <span><span class="badge ${s.cls}">${s.lbl}</span></span>
+    <span><select class="status-sel" onchange="updateStatus('${o.id}',this.value)">
+      <option value="pending" ${o.status==='pending'?'selected':''}>Menunggu</option>
+      <option value="processing" ${o.status==='processing'?'selected':''}>Diproses</option>
+      <option value="ready" ${o.status==='ready'?'selected':''}>Siap Diambil</option>
+      <option value="done" ${o.status==='done'?'selected':''}>Selesai</option>
+      <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Dibatalkan</option>
+    </select></span>
+  </div>`;
+}
+function renderOrderRows(q){
+  const items=q?orderData.filter(o=>o.id.toLowerCase().includes(q)||o.table.toLowerCase().includes(q)||o.items.toLowerCase().includes(q)):orderData;
+  document.getElementById('order-rows').innerHTML=items.map(o=>orderRowHTML(o)).join('');
+  updateOrderStats();
+}
+function updateStatus(id,val){
+  const o=orderData.find(x=>x.id===id);
+  if(o){o.status=val;renderOrderRows('');updateOrderStats();toast('Status pesanan '+id+' diperbarui!');}
+}
+function updateOrderStats(){
+  document.getElementById('o-all').textContent=orderData.length;
+  document.getElementById('o-active').textContent=orderData.filter(o=>['pending','processing','ready'].includes(o.status)).length;
+  document.getElementById('o-done').textContent=orderData.filter(o=>o.status==='done').length;
+  document.getElementById('o-cancel').textContent=orderData.filter(o=>o.status==='cancelled').length;
+  const badge=document.getElementById('order-badge');
+  const activeCount=orderData.filter(o=>['pending','processing'].includes(o.status)).length;
+  badge.textContent=activeCount; badge.style.display=activeCount?'':'none';
+}
+
+/* ─── REPORT ─── */
+function renderReportPage(){
+  const days=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  const vals=[3.2,4.1,3.8,5.0,4.5,6.2,5.8];
+  const max=Math.max(...vals);
+  const colors=['var(--sp)','var(--yk)','var(--mt)'];
+  document.getElementById('rep-chart').innerHTML=days.map((d,i)=>`<div class="bar-col"><div class="bar-val">${vals[i]}jt</div><div class="bar" style="height:${Math.round((vals[i]/max)*110)}px;background:${colors[i%3]}"></div><div class="bar-lbl">${d}</div></div>`).join('');
+  buildDonut();
+  renderReportRows('');
+}
+function buildDonut(){
+  const cats=[{n:'Makanan',pct:38,c:'#EE3F24'},{n:'Minuman',pct:35,c:'#F9A11B'},{n:'Snack',pct:15,c:'#023820'},{n:'Dessert',pct:12,c:'#3b82f6'}];
+  const r=35,cx=45,cy=45,stroke=14;
+  let offset=0;
+  const circ=2*Math.PI*r;
+  const svg=document.getElementById('donut-svg');
+  svg.innerHTML=cats.map(c=>{
+    const dash=circ*c.pct/100;
+    const gap=circ-dash;
+    const el=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c.c}" stroke-width="${stroke}" stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    offset+=dash; return el;
+  }).join('')+`<text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="12" font-weight="700" fill="#023820">100%</text>`;
+  document.getElementById('donut-legend').innerHTML=cats.map(c=>`<div class="donut-item"><div class="donut-dot" style="background:${c.c}"></div><span>${c.n} <b style="color:var(--mt)">${c.pct}%</b></span></div>`).join('');
+}
+const repData=[
+  {id:'#MG-0044',time:'Hari ini 18:40',items:'Gado-Gado, Jus Alpukat',qty:2,method:'QRIS',total:39600},
+  {id:'#MG-0043',time:'Hari ini 18:47',items:'Soto Ayam x2, Kopi Susu',qty:3,method:'Cash',total:66000},
+  {id:'#MG-0042',time:'Hari ini 18:51',items:'Nasi Goreng, Es Matcha x2',qty:3,method:'QRIS',total:79200},
+  {id:'#MG-0041',time:'Hari ini 18:30',items:'Mie Ayam, Es Teh x2',qty:3,method:'Cash',total:41800},
+  {id:'#MG-0040',time:'Kemarin 19:15',items:'Tempe Mendoan x3',qty:3,method:'Cash',total:39600},
+  {id:'#MG-0039',time:'Kemarin 18:05',items:'Klepon x2, Es Krim',qty:3,method:'QRIS',total:55000},
+];
+function renderReportRows(q){
+  const items=q?repData.filter(r=>r.id.toLowerCase().includes(q)||r.items.toLowerCase().includes(q)):repData;
+  document.getElementById('report-rows').innerHTML=items.map(r=>`
+    <div class="tbl-row">
+      <span style="font-weight:700;color:var(--sp);font-size:12px;">${r.id}</span>
+      <span style="font-size:12px;color:#777;">${r.time}</span>
+      <span style="font-size:12px;">${r.items}</span>
+      <span style="text-align:center;font-weight:600;">${r.qty}</span>
+      <span><span class="badge ${r.method==='QRIS'?'b-min':'b-sna'}">${r.method}</span></span>
+      <span style="font-weight:700;color:var(--mt);">${fRp(r.total)}</span>
+    </div>`).join('');
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._tid); t._tid=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+initDashboard(); renderMenuPage(); renderOrderPage(); renderReportPage();
+</script>
